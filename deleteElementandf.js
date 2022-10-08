@@ -1,9 +1,11 @@
 var form=document.getElementById('addForm')
 var itemslist=document.getElementById('items')
-
+var filter =document.getElementById('filter');
 
 form.addEventListener('submit',additems)
 itemslist.addEventListener('click',removeItem)
+//filter event 
+filter.addEventListener('keyup', filteterItems)
 // add element
 function additems(e)
 {
@@ -42,3 +44,21 @@ function removeItem(e){
     itemslist.removeChild(li)
    }
 }}
+//Filter Items
+function filteterItems(e){
+   //convert text lowercase
+   var text=e.target.value.toLowerCase();
+   var items=itemslist.getElementsByTagName('li')// it will give use html collection
+   //convert this collection to array
+   Array.from(items).forEach(function(item){
+      let itemName=item.firstChild.textContent;
+      if(itemName.toLowerCase().indexOf(text)!=-1){
+         item.style.display="block"
+      }
+      else{
+         item.style.display="none"
+      }
+   })
+   }
+
+   
