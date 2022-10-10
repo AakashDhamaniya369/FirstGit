@@ -16,6 +16,7 @@ function store(e)
     showData(users);
     
 }
+
 window.addEventListener('DOMContentLoaded',()=>{
     const localStoragekeys=Object.keys(localStorage)
     const  localStorageObj=localStorage;
@@ -31,10 +32,17 @@ window.addEventListener('DOMContentLoaded',()=>{
 function showData(user)
 {
     const parentNode=document.getElementById('listUsers');
+    // if(localStorage.getItem(user.email) !== null){
+    //     removeUserFromScreen(user.email)
+    // }
     const childHTML=`<li id=${user.email}> ${user.name} - ${user.email}
     <button onclick=deleteuser('${user.email}')>X</button>
+    <button onclick=editUser('${user.email}','${user.name}')>✎</button>
     </li>`
     parentNode.innerHTML=parentNode.innerHTML+childHTML
+    //for clear inpusts
+    document.getElementById('email').value=""
+    document.getElementById('name').value="";
 }
 function deleteuser(emailId){
 localStorage.removeItem(emailId)
@@ -47,4 +55,12 @@ function removeOnScreem(emailId)
     const childNode=document.getElementById(emailId)
     parentNode.removeChild(childNode)
 
+}
+function editUser(emailId,name)
+{
+    document.getElementById('email').value=emailId
+    document.getElementById('name').value=name;
+    //to ramove wrong details
+    deleteuser(emailId)
+    
 }
