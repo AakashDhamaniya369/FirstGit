@@ -31,8 +31,20 @@ window.addEventListener('DOMContentLoaded',()=>{
 function showData(user)
 {
     const parentNode=document.getElementById('listUsers');
-    const childHTML=`<li> ${user.name} - ${user.email} <button>X</button>`
+    const childHTML=`<li id=${user.email}> ${user.name} - ${user.email}
+    <button onclick=deleteuser('${user.email}')>X</button>
+    </li>`
     parentNode.innerHTML=parentNode.innerHTML+childHTML
 }
+function deleteuser(emailId){
+localStorage.removeItem(emailId)
+    removeOnScreem(emailId)
+}
 
+function removeOnScreem(emailId)
+{
+    const parentNode=document.getElementById('listUsers')
+    const childNode=document.getElementById(emailId)
+    parentNode.removeChild(childNode)
 
+}
