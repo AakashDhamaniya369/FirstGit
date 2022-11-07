@@ -35,12 +35,12 @@ window.addEventListener('DOMContentLoaded',()=>{
     let arr=[];
     const crudObj=axios.get('https://crudcrud.com/api/cf97864e6e0d456c8fe8d15d2e500798/appointment')
     crudObj.then(res=>{
-        for(let i=0;i<res.data.length;i++)
+        for(let i=1;i<res.data.length;i++)
         {
-            arr[i]=res.data[i];
+            showData(res.data[i]);
         }
-    })
-    console.log(arr)
+    }).catch(err=>console.log(err))
+    
     //  for(var i=0;i<crudKey.length;i++)
     //     {
     //     const key=crudKey[i];
