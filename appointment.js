@@ -14,10 +14,9 @@ function store(e)
     }
     // localStorage.setItem(users.email,JSON.stringify(users))
     //store data to server
-    axios.post('https://crudcrud.com/api/cf97864e6e0d456c8fe8d15d2e500798/appointment',users
+    axios.post('https://crudcrud.com/api/2d93af0a69d64dcc8fb9e85037a9317d/appointment',users
         ).then(res=>showData(res.data)).catch(err=>console.log(err))
     
-    showData(users);
     
 }
 
@@ -32,10 +31,9 @@ window.addEventListener('DOMContentLoaded',()=>{
     //     showData(userDetailsobj)
     // }
     // show data from crud crud
-    let arr=[];
-    const crudObj=axios.get('https://crudcrud.com/api/cf97864e6e0d456c8fe8d15d2e500798/appointment')
+    const crudObj=axios.get('https://crudcrud.com/api/2d93af0a69d64dcc8fb9e85037a9317d/appointment')
     crudObj.then(res=>{
-        for(let i=1;i<res.data.length;i++)
+        for(let i=0;i<res.data.length;i++)
         {
             showData(res.data[i]);
         }
@@ -49,24 +47,33 @@ window.addEventListener('DOMContentLoaded',()=>{
     //     console.log("hello")
         
     //  }
+    let a
+    crudObj.then(res=>{
+        // console.log(res.data[0]._id)
+        a=res.data[0];
+        console.log(a._id)
+    })
+     
 })
 
 function showData(user)
 {
     const parentNode=document.getElementById('listUsers');
     
-    const childHTML=`<li id=${user.email}> ${user.name} - ${user.email}
-    <button onclick=deleteuser('${user.email}')>X</button>
-    <button onclick=editUser('${user.email}','${user.name}')>✎</button>
+    const childHTML=`<li id=${user._id}> ${user.name} - ${user.email}
+    <button onclick=deleteuser('${user._id}')>X</button>
+    <button onclick=editUser('${user._id}','${user.name}')>✎</button>
     </li>`
     parentNode.innerHTML=parentNode.innerHTML+childHTML
     //for clear inpusts
     document.getElementById('email').value=""
     document.getElementById('name').value="";
 }
-function deleteuser(emailId){
-localStorage.removeItem(emailId)
-    removeOnScreem(emailId)
+function deleteuser(userId){
+axios.delete(`https://crudcrud.com/api/2d93af0a69d64dcc8fb9e85037a9317d/appointment/${userId}`).then(res=>{
+    removeOnScreem(userId)
+})
+    
 }
 
 function removeOnScreem(emailId)
