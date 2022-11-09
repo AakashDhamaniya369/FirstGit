@@ -14,7 +14,7 @@ function store(e)
     }
     // localStorage.setItem(users.email,JSON.stringify(users))
     //store data to server
-    axios.post('https://crudcrud.com/api/2d93af0a69d64dcc8fb9e85037a9317d/appointment',users
+    axios.post('https://crudcrud.com/api/94f8282046ad46ed8ff412638d66e29b/appointment',users
         ).then(res=>showData(res.data)).catch(err=>console.log(err))
     
     
@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     //     showData(userDetailsobj)
     // }
     // show data from crud crud
-    const crudObj=axios.get('https://crudcrud.com/api/2d93af0a69d64dcc8fb9e85037a9317d/appointment')
+    const crudObj=axios.get('https://crudcrud.com/api/94f8282046ad46ed8ff412638d66e29b/appointment')
     crudObj.then(res=>{
         for(let i=0;i<res.data.length;i++)
         {
@@ -46,14 +46,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     //     const userDetailsobj=JSON.parse(userDetailsString);
     //     console.log("hello")
         
-    //  }
-    let a
-    crudObj.then(res=>{
-        // console.log(res.data[0]._id)
-        a=res.data[0];
-        console.log(a._id)
-    })
-     
+    //  }b
 })
 
 function showData(user)
@@ -62,7 +55,7 @@ function showData(user)
     
     const childHTML=`<li id=${user._id}> ${user.name} - ${user.email}
     <button onclick=deleteuser('${user._id}')>X</button>
-    <button onclick=editUser('${user._id}','${user.name}')>✎</button>
+    <button onclick=editUser('${user.email}','${user.name}','${user._id}')>✎</button>
     </li>`
     parentNode.innerHTML=parentNode.innerHTML+childHTML
     //for clear inpusts
@@ -70,7 +63,7 @@ function showData(user)
     document.getElementById('name').value="";
 }
 function deleteuser(userId){
-axios.delete(`https://crudcrud.com/api/2d93af0a69d64dcc8fb9e85037a9317d/appointment/${userId}`).then(res=>{
+axios.delete(`https://crudcrud.com/api/94f8282046ad46ed8ff412638d66e29b/appointment/${userId}`).then(res=>{
     removeOnScreem(userId)
 })
     
@@ -83,11 +76,11 @@ function removeOnScreem(emailId)
     parentNode.removeChild(childNode)
 
 }
-function editUser(emailId,name)
+function editUser(emailId,name,userId)
 {
     document.getElementById('email').value=emailId
     document.getElementById('name').value=name;
     //to ramove wrong details
-    deleteuser(emailId)
+    deleteuser(userId)
     
 }
